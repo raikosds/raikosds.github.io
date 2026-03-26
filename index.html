@@ -380,7 +380,7 @@
 
   .product-card {
     margin-top: 48px;
-    background: var(--deep);
+    background: #145A38;
     border-radius: 20px;
     padding: 48px;
     display: grid;
@@ -398,7 +398,7 @@
     right: -20%;
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle, rgba(14, 116, 144, 0.15), transparent 60%);
+    background: radial-gradient(circle, rgba(27, 122, 74, 0.2), transparent 60%);
     pointer-events: none;
   }
 
@@ -422,6 +422,46 @@
     padding: 4px 12px;
     border-radius: 6px;
     margin-bottom: 16px;
+  }
+
+  .product-badge.live {
+    color: #34D399;
+    background: rgba(52, 211, 153, 0.12);
+  }
+
+  .appstore-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 24px;
+    padding: 12px 24px;
+    background: white;
+    color: #0B2C3D;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .appstore-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255,255,255,0.15);
+  }
+
+  .appstore-btn .appstore-pre {
+    display: block;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    color: var(--muted);
+    line-height: 1;
+  }
+
+  .appstore-btn .appstore-label {
+    display: block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
   }
 
   .product-info p {
@@ -469,7 +509,7 @@
   .phone-screen {
     position: absolute;
     inset: 12px 8px;
-    background: linear-gradient(180deg, #0E7490, #0B2C3D);
+    background: linear-gradient(180deg, #1B7A4A, #145A38);
     border-radius: 24px;
     display: flex;
     flex-direction: column;
@@ -496,7 +536,7 @@
     font-family: 'Outfit', sans-serif;
     font-size: 28px;
     font-weight: 800;
-    color: var(--ice);
+    color: #F0C850;
   }
 
   .phone-screen .app-label {
@@ -525,6 +565,17 @@
     justify-content: center;
     gap: 12px;
     flex-wrap: wrap;
+  }
+
+  .email-hint {
+    font-size: 12px;
+    color: var(--light-muted);
+    margin-top: 12px;
+    transition: color 0.3s;
+  }
+
+  .email-hint.copied {
+    color: #10B981;
   }
 
   /* ─── FOOTER ─── */
@@ -566,6 +617,8 @@
     }
 
     .product-features { justify-content: center; }
+
+    .appstore-btn { margin: 24px auto 0; }
 
     .footer-inner {
       flex-direction: column;
@@ -626,7 +679,7 @@
         I'm an indie developer building apps and tools under the name Raiko. I like making things that are practical, clean, and well thought-out.
       </p>
       <p class="section-desc">
-        Right now I'm focused on building products for the Philippine market — starting with TallyPH, a salary and tax calculator that actually makes sense.
+        Right now I'm focused on building products for the Philippine market — my first app, TallyPH, is live on the App Store.
       </p>
     </div>
     <div class="about-visual">
@@ -653,16 +706,24 @@
 
     <div class="product-card">
       <div class="product-info">
-        <span class="product-badge">Coming Soon</span>
+        <span class="product-badge live">Available on the App Store</span>
         <h3>TallyPH</h3>
-        <p>A clean, fast Philippine salary and tax calculator. Compute your SSS, PhilHealth, Pag-IBIG, and withholding tax in seconds — no spreadsheet needed.</p>
+        <p>Philippine tax and salary calculator for employees and freelancers. Employees get instant net pay breakdowns. Freelancers get advanced tools — including a DIY tax filing guide that walks you through the numbers step by step.</p>
         <div class="product-features">
           <span>BIR Tax Tables</span>
-          <span>SSS 2025</span>
-          <span>PhilHealth</span>
-          <span>Pag-IBIG</span>
-          <span>Flutter</span>
+          <span>SSS · PhilHealth · Pag-IBIG</span>
+          <span>8% vs Graduated Tax</span>
+          <span>DIY Tax Filing Guide</span>
         </div>
+        <a href="https://apps.apple.com/ph/app/tallyph/id6761089368" target="_blank" rel="noopener" class="appstore-btn">
+          <svg width="20" height="24" viewBox="0 0 814 1000" fill="currentColor">
+            <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57.8-155.5-127.4c-58.3-81.2-105.9-207.6-105.9-328.2 0-193.2 125.5-295.6 249.1-295.6 65.7 0 120.4 43.1 161.5 43.1 39.2 0 100.2-45.7 174.5-45.7 28.2 0 129.6 2.6 196.4 99.8zM554.1 159.4c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.9 32.4-54.4 83.6-54.4 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 134.8-71.3z"/>
+          </svg>
+          <div>
+            <span class="appstore-pre">Download on the</span>
+            <span class="appstore-label">App Store</span>
+          </div>
+        </a>
       </div>
       <div class="product-visual">
         <div class="phone-mockup">
@@ -687,8 +748,11 @@
       Got questions, ideas, or just want to chat? Drop me a line.
     </p>
     <div class="contact-links">
-      <a href="mailto:stephen@raiko.ph" class="btn btn-primary">stephen@raiko.ph</a>
+      <a href="mailto:stephen@raiko.ph" class="btn btn-primary" id="email-btn" onclick="handleEmail(event)">
+        <span id="email-text">stephen@raiko.ph</span>
+      </a>
     </div>
+    <p class="email-hint" id="email-hint">Click to open email — or it'll copy to clipboard</p>
   </div>
 </section>
 
@@ -719,6 +783,22 @@
   document.querySelectorAll('.product-card, .about-card').forEach(el => {
     observer.observe(el);
   });
+
+  // Email: try mailto, also copy to clipboard as fallback
+  function handleEmail(e) {
+    navigator.clipboard.writeText('stephen@raiko.ph').then(() => {
+      const hint = document.getElementById('email-hint');
+      const text = document.getElementById('email-text');
+      text.textContent = 'Copied!';
+      hint.textContent = 'Email address copied to clipboard';
+      hint.classList.add('copied');
+      setTimeout(() => {
+        text.textContent = 'stephen@raiko.ph';
+        hint.textContent = 'Click to open email — or it\'ll copy to clipboard';
+        hint.classList.remove('copied');
+      }, 2500);
+    });
+  }
 </script>
 
 </body>
