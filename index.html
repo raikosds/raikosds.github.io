@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Raiko — Indie Software Developer</title>
-<meta name="description" content="Raiko — building clean, practical apps and tools.">
+<title>Raiko — Stephen builds things</title>
+<meta name="description" content="Raiko — indie apps, games, and maybe comics. Made by Stephen.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,15 +15,15 @@
     --sky: #22B8CF;
     --ice: #A5F3FC;
     --bg: #F8FAFB;
-    --card: #FFFFFF;
     --muted: #64748B;
     --light-muted: #94A3B8;
     --border: #E2E8F0;
-    --glow: rgba(14, 116, 144, 0.08);
+    --green: #145A38;
+    --gold: #F0C850;
+    --purple: #7C5CFC;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -35,7 +35,6 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ─── GRAIN OVERLAY ─── */
   body::before {
     content: '';
     position: fixed;
@@ -48,588 +47,239 @@
     background-size: 180px;
   }
 
-  /* ─── ANIMATIONS ─── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes slideInLeft {
-    from { opacity: 0; transform: translateX(-20px); }
-    to { opacity: 1; transform: translateX(0); }
-  }
-
   @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(1deg); }
+  }
+  @keyframes wave {
+    0% { transform: rotate(0deg); }
+    10% { transform: rotate(14deg); }
+    20% { transform: rotate(-8deg); }
+    30% { transform: rotate(14deg); }
+    40% { transform: rotate(-4deg); }
+    50% { transform: rotate(10deg); }
+    60%, 100% { transform: rotate(0deg); }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
   }
 
-  @keyframes pulse-ring {
-    0% { transform: scale(1); opacity: 0.4; }
-    100% { transform: scale(1.8); opacity: 0; }
-  }
-
-  .anim-fade-up {
-    opacity: 0;
-    animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-
+  .anim-fade-up { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards; }
   .anim-d1 { animation-delay: 0.1s; }
   .anim-d2 { animation-delay: 0.2s; }
   .anim-d3 { animation-delay: 0.35s; }
   .anim-d4 { animation-delay: 0.5s; }
-  .anim-d5 { animation-delay: 0.65s; }
-  .anim-d6 { animation-delay: 0.8s; }
+  .wave-emoji { display: inline-block; animation: wave 2.5s ease-in-out infinite; transform-origin: 70% 70%; }
+  .cursor-blink { animation: blink 1s step-end infinite; }
 
-  /* ─── NAV ─── */
   nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    padding: 0 40px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(248, 250, 251, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 0 40px; height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(248,250,251,0.85);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(226,232,240,0.5);
     transition: box-shadow 0.3s ease;
   }
-
-  nav.scrolled {
-    box-shadow: 0 1px 8px rgba(11, 44, 61, 0.06);
-  }
-
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    text-decoration: none;
-  }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    list-style: none;
-  }
-
+  nav.scrolled { box-shadow: 0 1px 8px rgba(11,44,61,0.06); }
+  .nav-logo { display: flex; align-items: center; gap: 4px; text-decoration: none; }
+  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
   .nav-links a {
-    font-family: 'Outfit', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
+    font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 500;
+    letter-spacing: 0.5px; color: var(--muted); text-decoration: none; transition: color 0.2s;
   }
-
   .nav-links a:hover { color: var(--teal); }
-
   .nav-cta {
-    font-family: 'Outfit', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    color: white !important;
-    background: var(--teal);
-    padding: 8px 20px;
-    border-radius: 8px;
-    transition: background 0.2s, transform 0.2s;
+    font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.5px; color: white !important; background: var(--teal);
+    padding: 8px 20px; border-radius: 8px; transition: background 0.2s, transform 0.2s;
   }
+  .nav-cta:hover { background: var(--deep); transform: translateY(-1px); }
 
-  .nav-cta:hover {
-    background: var(--deep);
-    transform: translateY(-1px);
-  }
-
-  /* ─── HERO ─── */
   .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 120px 24px 80px;
-    position: relative;
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    padding: 120px 24px 80px; position: relative;
   }
-
-  /* Subtle grid pattern */
   .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
+    content: ''; position: absolute; inset: 0;
     background-image:
-      linear-gradient(rgba(14, 116, 144, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(14, 116, 144, 0.03) 1px, transparent 1px);
+      linear-gradient(rgba(14,116,144,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(14,116,144,0.03) 1px, transparent 1px);
     background-size: 64px 64px;
     mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black 20%, transparent 70%);
     -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black 20%, transparent 70%);
   }
-
-  .hero-logo {
-    margin-bottom: 32px;
-    animation: float 4s ease-in-out infinite;
-  }
-
-  .hero-tagline {
-    font-family: 'Outfit', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 20px;
-  }
-
+  .hero-logo { margin-bottom: 32px; animation: float 4s ease-in-out infinite; }
   .hero h1 {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(36px, 5vw, 56px);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -1px;
-    color: var(--deep);
-    margin-bottom: 20px;
-    max-width: 640px;
+    font-family: 'Outfit', sans-serif; font-size: clamp(36px,5vw,56px);
+    font-weight: 800; line-height: 1.15; letter-spacing: -1px;
+    color: var(--deep); margin-bottom: 20px; max-width: 680px;
   }
-
-  .hero h1 span {
+  .hero h1 span:not(.wave-emoji) {
     background: linear-gradient(135deg, var(--teal), var(--sky));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
-
   .hero-sub {
-    font-size: 17px;
-    line-height: 1.7;
-    color: var(--muted);
-    max-width: 480px;
-    margin-bottom: 40px;
+    font-size: 17px; line-height: 1.7; color: var(--muted);
+    max-width: 500px; margin-bottom: 40px;
   }
-
-  .hero-buttons {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+  .hero-sub em { font-style: normal; color: var(--deep); font-weight: 500; }
+  .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 
   .btn {
-    font-family: 'Outfit', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    padding: 14px 32px;
-    border-radius: 12px;
-    text-decoration: none;
-    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-    cursor: pointer;
-    border: none;
+    font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 600;
+    letter-spacing: 0.3px; padding: 14px 32px; border-radius: 12px;
+    text-decoration: none; transition: all 0.25s cubic-bezier(0.22,1,0.36,1);
+    cursor: pointer; border: none;
   }
-
   .btn-primary {
-    background: var(--teal);
-    color: white;
-    box-shadow: 0 2px 12px rgba(14, 116, 144, 0.3);
+    background: var(--teal); color: white;
+    box-shadow: 0 2px 12px rgba(14,116,144,0.3);
   }
-
   .btn-primary:hover {
-    background: var(--deep);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(11, 44, 61, 0.25);
+    background: var(--deep); transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(11,44,61,0.25);
   }
+  .btn-ghost { background: transparent; color: var(--deep); border: 1.5px solid var(--border); }
+  .btn-ghost:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); }
 
-  .btn-ghost {
-    background: transparent;
-    color: var(--deep);
-    border: 1.5px solid var(--border);
-  }
-
-  .btn-ghost:hover {
-    border-color: var(--teal);
-    color: var(--teal);
-    transform: translateY(-2px);
-  }
-
-  /* ─── SECTION SHARED ─── */
-  section {
-    padding: 100px 24px;
-  }
-
+  section { padding: 100px 24px; }
   .section-label {
-    font-family: 'Outfit', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 12px;
+    font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 600;
+    letter-spacing: 3px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px;
   }
-
   .section-title {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(28px, 3.5vw, 40px);
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--deep);
-    margin-bottom: 16px;
+    font-family: 'Outfit', sans-serif; font-size: clamp(28px,3.5vw,40px);
+    font-weight: 700; line-height: 1.2; color: var(--deep); margin-bottom: 16px;
   }
+  .section-desc { font-size: 15px; line-height: 1.7; color: var(--muted); max-width: 520px; }
 
-  .section-desc {
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--muted);
-    max-width: 520px;
-  }
-
-  /* ─── ABOUT ─── */
-  .about {
-    background: white;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
+  .about { background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .about-inner {
-    max-width: 960px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    align-items: center;
+    max-width: 960px; margin: 0 auto; display: grid;
+    grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
   }
-
-  .about-visual {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   .about-card {
-    background: var(--bg);
-    border-radius: 20px;
-    padding: 48px 40px;
-    border: 1px solid var(--border);
-    text-align: center;
-    width: 100%;
+    background: var(--bg); border-radius: 20px; padding: 40px 32px;
+    border: 1px solid var(--border); text-align: center; width: 100%;
+  }
+  .about-card .greeting { font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; color: var(--deep); margin-bottom: 4px; }
+  .about-card .role { font-size: 13px; color: var(--teal); font-weight: 500; margin-bottom: 16px; }
+  .status-item { display: flex; align-items: center; gap: 6px; justify-content: center; font-size: 12px; color: var(--light-muted); }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #10B981; }
+  .about-interests { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 16px; }
+  .about-interests span {
+    font-size: 11px; padding: 4px 10px; border-radius: 6px;
+    background: white; border: 1px solid var(--border); color: var(--muted);
   }
 
-  .about-card .greeting {
-    font-family: 'Outfit', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--deep);
-    margin-bottom: 4px;
-  }
-
-  .about-card .role {
-    font-size: 13px;
-    color: var(--teal);
-    font-weight: 500;
-    margin-bottom: 16px;
-  }
-
-  .about-card .location {
-    font-size: 12px;
-    color: var(--light-muted);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-  }
-
-  .status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #10B981;
-    position: relative;
-    display: inline-block;
-  }
-
-  .status-dot::after {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: 50%;
-    border: 2px solid #10B981;
-    animation: pulse-ring 2s ease-out infinite;
-  }
-
-  /* ─── PRODUCTS ─── */
-  .products {
-    background: white;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .products-inner {
-    max-width: 960px;
-    margin: 0 auto;
-  }
+  .products { background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .products-inner { max-width: 960px; margin: 0 auto; }
 
   .product-card {
-    margin-top: 48px;
-    background: #145A38;
-    border-radius: 20px;
-    padding: 48px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
+    margin-top: 40px; border-radius: 20px; padding: 48px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+    align-items: center; overflow: hidden; position: relative;
   }
-
   .product-card::after {
-    content: '';
-    position: absolute;
-    top: -60%;
-    right: -20%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(27, 122, 74, 0.2), transparent 60%);
+    content: ''; position: absolute; top: -60%; right: -20%;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,255,255,0.06), transparent 60%);
     pointer-events: none;
   }
-
-  .product-info h3 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 24px;
-    font-weight: 700;
-    color: white;
-    margin-bottom: 8px;
-  }
+  .product-card.tallyph { background: var(--green); }
+  .product-card.games { background: var(--deep); border: 1px solid rgba(124,92,252,0.15); }
 
   .product-badge {
-    display: inline-block;
-    font-family: 'Outfit', sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--sky);
-    background: rgba(34, 184, 207, 0.1);
-    padding: 4px 12px;
-    border-radius: 6px;
-    margin-bottom: 16px;
+    display: inline-block; font-family: 'Outfit', sans-serif; font-size: 10px;
+    font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 6px; margin-bottom: 16px;
   }
+  .product-badge.live { color: #34D399; background: rgba(52,211,153,0.12); }
+  .product-badge.soon { color: var(--purple); background: rgba(124,92,252,0.12); }
 
-  .product-badge.live {
-    color: #34D399;
-    background: rgba(52, 211, 153, 0.12);
-  }
-
-  .appstore-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 24px;
-    padding: 12px 24px;
-    background: white;
-    color: #0B2C3D;
-    border-radius: 12px;
-    text-decoration: none;
-    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .appstore-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(255,255,255,0.15);
-  }
-
-  .appstore-btn .appstore-pre {
-    display: block;
-    font-size: 9px;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-    color: var(--muted);
-    line-height: 1;
-  }
-
-  .appstore-btn .appstore-label {
-    display: block;
-    font-family: 'Outfit', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.2;
-  }
-
-  .product-info p {
-    font-size: 14px;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.6);
-    margin-bottom: 24px;
-  }
-
-  .product-features {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
+  .product-info h3 { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; color: white; margin-bottom: 8px; }
+  .product-info p { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.6); margin-bottom: 24px; }
+  .product-features { display: flex; flex-wrap: wrap; gap: 8px; }
   .product-features span {
-    font-size: 11px;
-    font-weight: 500;
-    color: rgba(255,255,255,0.5);
-    background: rgba(255,255,255,0.06);
-    padding: 6px 14px;
-    border-radius: 8px;
+    font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.06); padding: 6px 14px; border-radius: 8px;
     border: 1px solid rgba(255,255,255,0.08);
   }
 
-  .product-visual {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 1;
+  .appstore-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-top: 24px; padding: 12px 24px; background: white;
+    color: #0B2C3D; border-radius: 12px; text-decoration: none;
+    transition: all 0.25s cubic-bezier(0.22,1,0.36,1);
   }
+  .appstore-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,255,255,0.15); }
+  .appstore-btn .appstore-pre { display: block; font-size: 9px; font-weight: 500; letter-spacing: 0.3px; color: var(--muted); line-height: 1; }
+  .appstore-btn .appstore-label { display: block; font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 700; line-height: 1.2; }
 
+  .product-visual { display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
   .phone-mockup {
-    width: 200px;
-    height: 400px;
-    background: #111;
-    border-radius: 32px;
-    border: 3px solid #333;
-    position: relative;
-    overflow: hidden;
+    width: 200px; height: 400px; background: #111; border-radius: 32px;
+    border: 3px solid #333; position: relative; overflow: hidden;
     box-shadow: 0 20px 60px rgba(0,0,0,0.4);
   }
-
   .phone-screen {
-    position: absolute;
-    inset: 12px 8px;
+    position: absolute; inset: 12px 8px;
     background: linear-gradient(180deg, #1B7A4A, #145A38);
-    border-radius: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 24px 16px;
-    gap: 8px;
+    border-radius: 24px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 24px 16px; gap: 8px;
+  }
+  .phone-screen .app-title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; color: white; }
+  .phone-screen .app-sub { font-size: 10px; color: rgba(255,255,255,0.5); margin-bottom: 12px; }
+  .phone-screen .app-amount { font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 800; color: var(--gold); }
+  .phone-screen .app-label { font-size: 9px; color: rgba(255,255,255,0.4); letter-spacing: 1px; text-transform: uppercase; }
+
+  .games-visual { display: flex; align-items: center; justify-content: center; }
+  .games-placeholder {
+    width: 200px; height: 200px; border-radius: 24px;
+    background: rgba(124,92,252,0.08); border: 2px dashed rgba(124,92,252,0.25);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+  }
+  .games-placeholder .emoji { font-size: 48px; }
+  .games-placeholder .text {
+    font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 600;
+    color: rgba(124,92,252,0.6); letter-spacing: 1px;
   }
 
-  .phone-screen .app-title {
-    font-family: 'Outfit', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: white;
-  }
+  .contact { text-align: center; }
+  .contact-inner { max-width: 520px; margin: 0 auto; }
+  .contact-inner .section-desc { margin: 0 auto 32px; }
+  .contact-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .email-hint { font-size: 12px; color: var(--light-muted); margin-top: 12px; transition: color 0.3s; }
+  .email-hint.copied { color: #10B981; }
 
-  .phone-screen .app-sub {
-    font-size: 10px;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 12px;
-  }
+  footer { padding: 40px 24px; text-align: center; border-top: 1px solid var(--border); }
+  .footer-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+  .footer-copy { font-size: 12px; color: var(--light-muted); }
+  .footer-easter { font-size: 12px; color: var(--light-muted); cursor: default; transition: color 0.3s; }
+  .footer-easter:hover { color: var(--teal); }
 
-  .phone-screen .app-amount {
-    font-family: 'Outfit', sans-serif;
-    font-size: 28px;
-    font-weight: 800;
-    color: #F0C850;
-  }
-
-  .phone-screen .app-label {
-    font-size: 9px;
-    color: rgba(255,255,255,0.4);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  /* ─── CONTACT / CTA ─── */
-  .contact {
-    text-align: center;
-  }
-
-  .contact-inner {
-    max-width: 520px;
-    margin: 0 auto;
-  }
-
-  .contact-inner .section-desc {
-    margin: 0 auto 32px;
-  }
-
-  .contact-links {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .email-hint {
-    font-size: 12px;
-    color: var(--light-muted);
-    margin-top: 12px;
-    transition: color 0.3s;
-  }
-
-  .email-hint.copied {
-    color: #10B981;
-  }
-
-  /* ─── FOOTER ─── */
-  footer {
-    padding: 40px 24px;
-    text-align: center;
-    border-top: 1px solid var(--border);
-  }
-
-  .footer-inner {
-    max-width: 960px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .footer-copy {
-    font-size: 12px;
-    color: var(--light-muted);
-  }
-
-  /* ─── RESPONSIVE ─── */
   @media (max-width: 768px) {
     nav { padding: 0 20px; }
     .nav-links { display: none; }
-
     .hero { padding: 100px 20px 60px; }
-
-    .about-inner {
-      grid-template-columns: 1fr;
-      gap: 40px;
-    }
-
-    .product-card {
-      grid-template-columns: 1fr;
-      padding: 32px 24px;
-      text-align: center;
-    }
-
+    .about-inner { grid-template-columns: 1fr; gap: 40px; }
+    .product-card { grid-template-columns: 1fr; padding: 32px 24px; text-align: center; }
     .product-features { justify-content: center; }
-
     .appstore-btn { margin: 24px auto 0; }
-
-    .footer-inner {
-      flex-direction: column;
-      gap: 8px;
-    }
+    .games-placeholder { width: 160px; height: 160px; margin: 0 auto; }
+    .footer-inner { flex-direction: column; gap: 8px; }
   }
 </style>
 </head>
 <body>
 
-<!-- ─── NAV ─── -->
 <nav id="nav">
   <a href="#" class="nav-logo">
     <svg width="120" height="36" viewBox="0 0 220 68" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -641,12 +291,11 @@
   </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#products">Products</a></li>
-    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+    <li><a href="#stuff">Stuff I Made</a></li>
+    <li><a href="#contact" class="nav-cta">Say Hi</a></li>
   </ul>
 </nav>
 
-<!-- ─── HERO ─── -->
 <section class="hero" id="hero">
   <div class="hero-logo anim-fade-up anim-d1">
     <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -656,33 +305,36 @@
       <path d="M31 40 L50 54 H40 L30 47 V40 H31Z" fill="#A5F3FC"/>
     </svg>
   </div>
-  <p class="hero-tagline anim-fade-up anim-d2">Indie Software Developer</p>
-  <h1 class="anim-fade-up anim-d3">
-    I build software<br>that <span>works.</span>
+  <h1 class="anim-fade-up anim-d2">
+    Hey, I'm Stephen <span class="wave-emoji">&#128075;</span><br>
+    I make <span>things.</span>
   </h1>
-  <p class="hero-sub anim-fade-up anim-d4">
-    Clean code, thoughtful design, and apps that solve real problems.
+  <p class="hero-sub anim-fade-up anim-d3">
+    Indie developer. I build apps, games, and whatever else sounds fun &mdash; <em>in my spare time.</em>
+    <br>Which is kind of all the time, honestly.
   </p>
-  <div class="hero-buttons anim-fade-up anim-d5">
-    <a href="#products" class="btn btn-primary">See What I'm Building</a>
-    <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+  <div class="hero-buttons anim-fade-up anim-d4">
+    <a href="#stuff" class="btn btn-primary">See what I've shipped</a>
+    <a href="#contact" class="btn btn-ghost">Say hi</a>
   </div>
 </section>
 
-<!-- ─── ABOUT ─── -->
 <section class="about" id="about">
   <div class="about-inner">
     <div>
       <p class="section-label">About</p>
-      <h2 class="section-title">Hey, I'm Stephen.</h2>
+      <h2 class="section-title">The short version.</h2>
       <p class="section-desc" style="margin-bottom: 20px;">
-        I'm an indie developer building apps and tools under the name Raiko. I like making things that are practical, clean, and well thought-out.
+        I'm a one-person studio called Raiko. I like building things from scratch &mdash; figuring out the problem, designing the solution, writing the code, and shipping it.
+      </p>
+      <p class="section-desc" style="margin-bottom: 20px;">
+        Right now I've got a tax calculator on the App Store (yes, really &mdash; and people actually use it). Next up: games that I want people to play globally. Someday I'll probably draw comics too, because why not.
       </p>
       <p class="section-desc">
-        Right now I'm focused on building products for the Philippine market — my first app, TallyPH, is live on the App Store.
+        I don't really have a grand plan. I just like making stuff and putting it out there.
       </p>
     </div>
-    <div class="about-visual">
+    <div style="display:flex;align-items:center;justify-content:center;">
       <div class="about-card">
         <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin: 0 auto 20px;">
           <rect width="56" height="56" rx="14" fill="#0E7490"/>
@@ -691,27 +343,37 @@
           <path d="M26 32 L38 42 H31 L25 37 V32 H26Z" fill="#A5F3FC"/>
         </svg>
         <p class="greeting">Stephen</p>
-        <p class="role">Indie Developer</p>
+        <p class="role">Makes things under "Raiko"</p>
+        <div class="status-item">
+          <span class="status-dot"></span>
+          <span>Probably building something rn</span>
+        </div>
+        <div class="about-interests">
+          <span>apps</span>
+          <span>games</span>
+          <span>comics (soon)</span>
+          <span>flutter</span>
+          <span>side quests</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── PRODUCTS ─── -->
-<section class="products" id="products">
+<section class="products" id="stuff">
   <div class="products-inner">
-    <p class="section-label">Products</p>
-    <h2 class="section-title">What I'm building.</h2>
-    <p class="section-desc">Apps and tools, solving everyday problems.</p>
+    <p class="section-label">Stuff I Made</p>
+    <h2 class="section-title">Things that are actually real.</h2>
+    <p class="section-desc">Shipped and alive in the wild. Or at least in progress.</p>
 
-    <div class="product-card">
+    <div class="product-card tallyph">
       <div class="product-info">
-        <span class="product-badge live">Available on the App Store</span>
+        <span class="product-badge live">Live on the App Store</span>
         <h3>TallyPH</h3>
-        <p>Philippine tax and salary calculator for employees and freelancers. Employees get instant net pay breakdowns. Freelancers get advanced tools — including a DIY tax filing guide that walks you through the numbers step by step.</p>
+        <p>Philippine tax and salary calculator for employees and freelancers. Employees get instant net pay breakdowns. Freelancers get the good stuff &mdash; 8% vs graduated tax comparison, and a step-by-step DIY guide to actually file your own taxes with the right numbers.</p>
         <div class="product-features">
           <span>BIR Tax Tables</span>
-          <span>SSS · PhilHealth · Pag-IBIG</span>
+          <span>SSS &middot; PhilHealth &middot; Pag-IBIG</span>
           <span>8% vs Graduated Tax</span>
           <span>DIY Tax Filing Guide</span>
         </div>
@@ -730,47 +392,63 @@
           <div class="phone-screen">
             <span class="app-title">TallyPH</span>
             <span class="app-sub">Salary Calculator</span>
-            <span class="app-amount">₱28,450</span>
+            <span class="app-amount">&#8369;28,450</span>
             <span class="app-label">Monthly Net Pay</span>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card games">
+      <div class="product-info">
+        <span class="product-badge soon">Coming Eventually&#8482;</span>
+        <h3>Games</h3>
+        <p>Working on games I want people everywhere to play &mdash; not just locally. Details are still in my head (and a few notebooks), but they're coming. Globally.</p>
+        <div class="product-features">
+          <span>Global audience</span>
+          <span>Still cooking</span>
+          <span>Will be fun (trust me)</span>
+        </div>
+      </div>
+      <div class="games-visual">
+        <div class="games-placeholder">
+          <span class="emoji">&#127918;</span>
+          <span class="text">LOADING<span class="cursor-blink">_</span></span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── CONTACT ─── -->
 <section class="contact" id="contact">
   <div class="contact-inner">
-    <p class="section-label">Get in Touch</p>
-    <h2 class="section-title">Say hello.</h2>
+    <p class="section-label">Say Hi</p>
+    <h2 class="section-title">I don't bite.</h2>
     <p class="section-desc">
-      Got questions, ideas, or just want to chat? Drop me a line.
+      Wanna talk about apps, games, collabs, or just say something nice? I'm always happy to hear from people.
     </p>
     <div class="contact-links">
       <a href="mailto:stephen@raiko.ph" class="btn btn-primary" id="email-btn" onclick="handleEmail(event)">
         <span id="email-text">stephen@raiko.ph</span>
       </a>
     </div>
-    <p class="email-hint" id="email-hint">Click to open email — or it'll copy to clipboard</p>
+    <p class="email-hint" id="email-hint">Click to open email &mdash; or it'll copy to clipboard</p>
   </div>
 </section>
 
-<!-- ─── FOOTER ─── -->
 <footer>
   <div class="footer-inner">
     <span class="footer-copy">&copy; 2026 Raiko SDS</span>
+    <span class="footer-easter">made with mass amounts of coffee</span>
   </div>
 </footer>
 
 <script>
-  // Navbar scroll effect
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 10);
   });
 
-  // Scroll-triggered animations
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -784,7 +462,6 @@
     observer.observe(el);
   });
 
-  // Email: try mailto, also copy to clipboard as fallback
   function handleEmail(e) {
     navigator.clipboard.writeText('stephen@raiko.ph').then(() => {
       const hint = document.getElementById('email-hint');
@@ -794,7 +471,7 @@
       hint.classList.add('copied');
       setTimeout(() => {
         text.textContent = 'stephen@raiko.ph';
-        hint.textContent = 'Click to open email — or it\'ll copy to clipboard';
+        hint.textContent = 'Click to open email \u2014 or it\u2019ll copy to clipboard';
         hint.classList.remove('copied');
       }, 2500);
     });
