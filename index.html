@@ -22,58 +22,25 @@
     --gold: #F0C850;
     --purple: #7C5CFC;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-
   body {
     font-family: 'DM Sans', -apple-system, sans-serif;
-    background: var(--bg);
-    color: var(--deep);
-    min-height: 100vh;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
+    background: var(--bg); color: var(--deep);
+    min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased;
   }
-
   body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    pointer-events: none;
-    opacity: 0.025;
+    content: ''; position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0.025;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 180px;
+    background-repeat: repeat; background-size: 180px;
   }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-8px) rotate(1deg); }
-  }
-  @keyframes wave {
-    0% { transform: rotate(0deg); }
-    10% { transform: rotate(14deg); }
-    20% { transform: rotate(-8deg); }
-    30% { transform: rotate(14deg); }
-    40% { transform: rotate(-4deg); }
-    50% { transform: rotate(10deg); }
-    60%, 100% { transform: rotate(0deg); }
-  }
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(1deg); } }
+  @keyframes wave { 0% { transform: rotate(0deg); } 10% { transform: rotate(14deg); } 20% { transform: rotate(-8deg); } 30% { transform: rotate(14deg); } 40% { transform: rotate(-4deg); } 50% { transform: rotate(10deg); } 60%, 100% { transform: rotate(0deg); } }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
   .anim-fade-up { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards; }
-  .anim-d1 { animation-delay: 0.1s; }
-  .anim-d2 { animation-delay: 0.2s; }
-  .anim-d3 { animation-delay: 0.35s; }
-  .anim-d4 { animation-delay: 0.5s; }
+  .anim-d1 { animation-delay: 0.1s; } .anim-d2 { animation-delay: 0.2s; }
+  .anim-d3 { animation-delay: 0.35s; } .anim-d4 { animation-delay: 0.5s; }
   .wave-emoji { display: inline-block; animation: wave 2.5s ease-in-out infinite; transform-origin: 70% 70%; }
   .cursor-blink { animation: blink 1s step-end infinite; }
 
@@ -83,174 +50,77 @@
     display: flex; align-items: center; justify-content: space-between;
     background: rgba(248,250,251,0.85);
     backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(226,232,240,0.5);
-    transition: box-shadow 0.3s ease;
+    border-bottom: 1px solid rgba(226,232,240,0.5); transition: box-shadow 0.3s ease;
   }
   nav.scrolled { box-shadow: 0 1px 8px rgba(11,44,61,0.06); }
   .nav-logo { display: flex; align-items: center; gap: 4px; text-decoration: none; }
   .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
-  .nav-links a {
-    font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 500;
-    letter-spacing: 0.5px; color: var(--muted); text-decoration: none; transition: color 0.2s;
-  }
+  .nav-links a { font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover { color: var(--teal); }
-  .nav-cta {
-    font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 600;
-    letter-spacing: 0.5px; color: white !important; background: var(--teal);
-    padding: 8px 20px; border-radius: 8px; transition: background 0.2s, transform 0.2s;
-  }
+  .nav-cta { font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; color: white !important; background: var(--teal); padding: 8px 20px; border-radius: 8px; transition: background 0.2s, transform 0.2s; }
   .nav-cta:hover { background: var(--deep); transform: translateY(-1px); }
 
-  .hero {
-    min-height: 100vh; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; text-align: center;
-    padding: 120px 24px 80px; position: relative;
-  }
-  .hero::before {
-    content: ''; position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(14,116,144,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(14,116,144,0.03) 1px, transparent 1px);
-    background-size: 64px 64px;
-    mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black 20%, transparent 70%);
-    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black 20%, transparent 70%);
-  }
+  .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 24px 80px; position: relative; }
+  .hero::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(14,116,144,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(14,116,144,0.03) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black 20%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 40%, black 20%, transparent 70%); }
   .hero-logo { margin-bottom: 32px; animation: float 4s ease-in-out infinite; }
-  .hero h1 {
-    font-family: 'Outfit', sans-serif; font-size: clamp(36px,5vw,56px);
-    font-weight: 800; line-height: 1.15; letter-spacing: -1px;
-    color: var(--deep); margin-bottom: 20px; max-width: 680px;
-  }
-  .hero h1 span:not(.wave-emoji) {
-    background: linear-gradient(135deg, var(--teal), var(--sky));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  }
-  .hero-sub {
-    font-size: 17px; line-height: 1.7; color: var(--muted);
-    max-width: 500px; margin-bottom: 40px;
-  }
+  .hero h1 { font-family: 'Outfit', sans-serif; font-size: clamp(36px,5vw,56px); font-weight: 800; line-height: 1.15; letter-spacing: -1px; color: var(--deep); margin-bottom: 20px; max-width: 680px; }
+  .hero h1 span:not(.wave-emoji) { background: linear-gradient(135deg, var(--teal), var(--sky)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-sub { font-size: 17px; line-height: 1.7; color: var(--muted); max-width: 500px; margin-bottom: 40px; }
   .hero-sub em { font-style: normal; color: var(--deep); font-weight: 500; }
   .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
-
-  .btn {
-    font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 600;
-    letter-spacing: 0.3px; padding: 14px 32px; border-radius: 12px;
-    text-decoration: none; transition: all 0.25s cubic-bezier(0.22,1,0.36,1);
-    cursor: pointer; border: none;
-  }
-  .btn-primary {
-    background: var(--teal); color: white;
-    box-shadow: 0 2px 12px rgba(14,116,144,0.3);
-  }
-  .btn-primary:hover {
-    background: var(--deep); transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(11,44,61,0.25);
-  }
+  .btn { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.3px; padding: 14px 32px; border-radius: 12px; text-decoration: none; transition: all 0.25s cubic-bezier(0.22,1,0.36,1); cursor: pointer; border: none; }
+  .btn-primary { background: var(--teal); color: white; box-shadow: 0 2px 12px rgba(14,116,144,0.3); }
+  .btn-primary:hover { background: var(--deep); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(11,44,61,0.25); }
   .btn-ghost { background: transparent; color: var(--deep); border: 1.5px solid var(--border); }
   .btn-ghost:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); }
 
   section { padding: 100px 24px; }
-  .section-label {
-    font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 600;
-    letter-spacing: 3px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px;
-  }
-  .section-title {
-    font-family: 'Outfit', sans-serif; font-size: clamp(28px,3.5vw,40px);
-    font-weight: 700; line-height: 1.2; color: var(--deep); margin-bottom: 16px;
-  }
+  .section-label { font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; }
+  .section-title { font-family: 'Outfit', sans-serif; font-size: clamp(28px,3.5vw,40px); font-weight: 700; line-height: 1.2; color: var(--deep); margin-bottom: 16px; }
   .section-desc { font-size: 15px; line-height: 1.7; color: var(--muted); max-width: 520px; }
 
   .about { background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-  .about-inner {
-    max-width: 960px; margin: 0 auto; display: grid;
-    grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
-  }
-  .about-card {
-    background: var(--bg); border-radius: 20px; padding: 40px 32px;
-    border: 1px solid var(--border); text-align: center; width: 100%;
-  }
+  .about-inner { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .about-card { background: var(--bg); border-radius: 20px; padding: 40px 32px; border: 1px solid var(--border); text-align: center; width: 100%; }
   .about-card .greeting { font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; color: var(--deep); margin-bottom: 4px; }
   .about-card .role { font-size: 13px; color: var(--teal); font-weight: 500; margin-bottom: 16px; }
   .status-item { display: flex; align-items: center; gap: 6px; justify-content: center; font-size: 12px; color: var(--light-muted); }
   .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #10B981; }
   .about-interests { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 16px; }
-  .about-interests span {
-    font-size: 11px; padding: 4px 10px; border-radius: 6px;
-    background: white; border: 1px solid var(--border); color: var(--muted);
-  }
+  .about-interests span { font-size: 11px; padding: 4px 10px; border-radius: 6px; background: white; border: 1px solid var(--border); color: var(--muted); }
 
   .products { background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .products-inner { max-width: 960px; margin: 0 auto; }
-
-  .product-card {
-    margin-top: 40px; border-radius: 20px; padding: 48px;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
-    align-items: center; overflow: hidden; position: relative;
-  }
-  .product-card::after {
-    content: ''; position: absolute; top: -60%; right: -20%;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(255,255,255,0.06), transparent 60%);
-    pointer-events: none;
-  }
+  .product-card { margin-top: 40px; border-radius: 20px; padding: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; overflow: hidden; position: relative; }
+  .product-card::after { content: ''; position: absolute; top: -60%; right: -20%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,255,255,0.06), transparent 60%); pointer-events: none; }
   .product-card.tallyph { background: var(--green); }
   .product-card.games { background: var(--deep); border: 1px solid rgba(124,92,252,0.15); }
-
-  .product-badge {
-    display: inline-block; font-family: 'Outfit', sans-serif; font-size: 10px;
-    font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
-    padding: 4px 12px; border-radius: 6px; margin-bottom: 16px;
-  }
+  .product-badge { display: inline-block; font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 6px; margin-bottom: 16px; }
   .product-badge.live { color: #34D399; background: rgba(52,211,153,0.12); }
   .product-badge.soon { color: var(--purple); background: rgba(124,92,252,0.12); }
-
   .product-info h3 { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 700; color: white; margin-bottom: 8px; }
   .product-info p { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.6); margin-bottom: 24px; }
   .product-features { display: flex; flex-wrap: wrap; gap: 8px; }
-  .product-features span {
-    font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.5);
-    background: rgba(255,255,255,0.06); padding: 6px 14px; border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.08);
-  }
+  .product-features span { font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.06); padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); }
 
-  .appstore-btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    margin-top: 24px; padding: 12px 24px; background: white;
-    color: #0B2C3D; border-radius: 12px; text-decoration: none;
-    transition: all 0.25s cubic-bezier(0.22,1,0.36,1);
-  }
-  .appstore-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,255,255,0.15); }
-  .appstore-btn .appstore-pre { display: block; font-size: 9px; font-weight: 500; letter-spacing: 0.3px; color: var(--muted); line-height: 1; }
-  .appstore-btn .appstore-label { display: block; font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 700; line-height: 1.2; }
+  .store-buttons { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+  .store-btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; background: white; color: #0B2C3D; border-radius: 12px; text-decoration: none; transition: all 0.25s cubic-bezier(0.22,1,0.36,1); }
+  .store-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,255,255,0.15); }
+  .store-btn .store-pre { display: block; font-size: 8px; font-weight: 500; letter-spacing: 0.3px; color: var(--muted); line-height: 1; }
+  .store-btn .store-label { display: block; font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 700; line-height: 1.2; }
 
   .product-visual { display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
-  .phone-mockup {
-    width: 200px; height: 400px; background: #111; border-radius: 32px;
-    border: 3px solid #333; position: relative; overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-  }
-  .phone-screen {
-    position: absolute; inset: 12px 8px;
-    background: linear-gradient(180deg, #1B7A4A, #145A38);
-    border-radius: 24px; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; padding: 24px 16px; gap: 8px;
-  }
+  .phone-mockup { width: 200px; height: 400px; background: #111; border-radius: 32px; border: 3px solid #333; position: relative; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .phone-screen { position: absolute; inset: 12px 8px; background: linear-gradient(180deg, #1B7A4A, #145A38); border-radius: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; gap: 8px; }
   .phone-screen .app-title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; color: white; }
   .phone-screen .app-sub { font-size: 10px; color: rgba(255,255,255,0.5); margin-bottom: 12px; }
   .phone-screen .app-amount { font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 800; color: var(--gold); }
   .phone-screen .app-label { font-size: 9px; color: rgba(255,255,255,0.4); letter-spacing: 1px; text-transform: uppercase; }
 
   .games-visual { display: flex; align-items: center; justify-content: center; }
-  .games-placeholder {
-    width: 200px; height: 200px; border-radius: 24px;
-    background: rgba(124,92,252,0.08); border: 2px dashed rgba(124,92,252,0.25);
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
-  }
+  .games-placeholder { width: 200px; height: 200px; border-radius: 24px; background: rgba(124,92,252,0.08); border: 2px dashed rgba(124,92,252,0.25); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
   .games-placeholder .emoji { font-size: 48px; }
-  .games-placeholder .text {
-    font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 600;
-    color: rgba(124,92,252,0.6); letter-spacing: 1px;
-  }
+  .games-placeholder .text { font-family: 'Outfit', sans-serif; font-size: 12px; font-weight: 600; color: rgba(124,92,252,0.6); letter-spacing: 1px; }
 
   .contact { text-align: center; }
   .contact-inner { max-width: 520px; margin: 0 auto; }
@@ -266,13 +136,12 @@
   .footer-easter:hover { color: var(--teal); }
 
   @media (max-width: 768px) {
-    nav { padding: 0 20px; }
-    .nav-links { display: none; }
+    nav { padding: 0 20px; } .nav-links { display: none; }
     .hero { padding: 100px 20px 60px; }
     .about-inner { grid-template-columns: 1fr; gap: 40px; }
     .product-card { grid-template-columns: 1fr; padding: 32px 24px; text-align: center; }
     .product-features { justify-content: center; }
-    .appstore-btn { margin: 24px auto 0; }
+    .store-buttons { justify-content: center; }
     .games-placeholder { width: 160px; height: 160px; margin: 0 auto; }
     .footer-inner { flex-direction: column; gap: 8px; }
   }
@@ -328,7 +197,7 @@
         I'm a one-person studio called Raiko. I like building things from scratch &mdash; figuring out the problem, designing the solution, writing the code, and shipping it.
       </p>
       <p class="section-desc" style="margin-bottom: 20px;">
-        Right now I've got a tax calculator on the App Store (yes, really &mdash; and people actually use it). Next up: games that I want people to play globally. Someday I'll probably draw comics too, because why not.
+        Right now I've got a tax calculator live on both app stores (yes, really &mdash; and people actually use it). Next up: games that I want people to play globally. Someday I'll probably draw comics too, because why not.
       </p>
       <p class="section-desc">
         I don't really have a grand plan. I just like making stuff and putting it out there.
@@ -368,7 +237,7 @@
 
     <div class="product-card tallyph">
       <div class="product-info">
-        <span class="product-badge live">Live on the App Store</span>
+        <span class="product-badge live">Live on iOS &amp; Android</span>
         <h3>TallyPH</h3>
         <p>Philippine tax and salary calculator for employees and freelancers. Employees get instant net pay breakdowns. Freelancers get the good stuff &mdash; 8% vs graduated tax comparison, and a step-by-step DIY guide to actually file your own taxes with the right numbers.</p>
         <div class="product-features">
@@ -377,21 +246,28 @@
           <span>8% vs Graduated Tax</span>
           <span>DIY Tax Filing Guide</span>
         </div>
-        <a href="https://apps.apple.com/ph/app/tallyph/id6761089368" target="_blank" rel="noopener" class="appstore-btn">
-          <svg width="20" height="24" viewBox="0 0 814 1000" fill="currentColor">
-            <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57.8-155.5-127.4c-58.3-81.2-105.9-207.6-105.9-328.2 0-193.2 125.5-295.6 249.1-295.6 65.7 0 120.4 43.1 161.5 43.1 39.2 0 100.2-45.7 174.5-45.7 28.2 0 129.6 2.6 196.4 99.8zM554.1 159.4c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.9 32.4-54.4 83.6-54.4 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 134.8-71.3z"/>
-          </svg>
-          <div>
-            <span class="appstore-pre">Download on the</span>
-            <span class="appstore-label">App Store</span>
-          </div>
-        </a>
+        <div class="store-buttons">
+          <a href="https://apps.apple.com/ph/app/tallyph/id6761089368" target="_blank" rel="noopener" class="store-btn">
+            <svg width="18" height="22" viewBox="0 0 814 1000" fill="currentColor"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57.8-155.5-127.4c-58.3-81.2-105.9-207.6-105.9-328.2 0-193.2 125.5-295.6 249.1-295.6 65.7 0 120.4 43.1 161.5 43.1 39.2 0 100.2-45.7 174.5-45.7 28.2 0 129.6 2.6 196.4 99.8zM554.1 159.4c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.9 32.4-54.4 83.6-54.4 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 134.8-71.3z"/></svg>
+            <div>
+              <span class="store-pre">Download on the</span>
+              <span class="store-label">App Store</span>
+            </div>
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.raikosds.tallyph" target="_blank" rel="noopener" class="store-btn">
+            <svg width="18" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 010 1.38l-2.302 2.302L15.396 12l2.302-2.492zM5.864 2.658L16.8 8.99l-2.302 2.303L5.864 2.658z"/></svg>
+            <div>
+              <span class="store-pre">Get it on</span>
+              <span class="store-label">Google Play</span>
+            </div>
+          </a>
+        </div>
       </div>
       <div class="product-visual">
         <div class="phone-mockup">
           <div class="phone-screen">
             <span class="app-title">TallyPH</span>
-            <span class="app-sub">Salary Calculator</span>
+            <span class="app-sub">Tax &amp; Salary Calculator</span>
             <span class="app-amount">&#8369;28,450</span>
             <span class="app-label">Monthly Net Pay</span>
           </div>
@@ -445,22 +321,14 @@
 
 <script>
   const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 10);
-  });
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 10); });
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('anim-fade-up', 'anim-d2');
-        observer.unobserve(entry.target);
-      }
+      if (entry.isIntersecting) { entry.target.classList.add('anim-fade-up', 'anim-d2'); observer.unobserve(entry.target); }
     });
   }, { threshold: 0.15 });
-
-  document.querySelectorAll('.product-card, .about-card').forEach(el => {
-    observer.observe(el);
-  });
+  document.querySelectorAll('.product-card, .about-card').forEach(el => { observer.observe(el); });
 
   function handleEmail(e) {
     navigator.clipboard.writeText('stephen@raiko.ph').then(() => {
