@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raiko — AI Operations Audits for Established Businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f3ecdf;
+    --bg-alt:#ece2cf;
+    --paper:#fbf7ef;
+    --ink:#211d18;
+    --ink-soft:#544c40;
+    --accent:#b8502a;
+    --accent-deep:#8f3a1c;
+    --green:#2c5239;
+    --green-soft:#3d6b4c;
+    --line:#d8ccb4;
+    --shadow:24px 24px 60px rgba(33,29,24,.10);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Hanken Grotesk',sans-serif;
+    font-size:18px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;line-height:1.08;letter-spacing:-.01em}
+  .display{font-size:clamp(2.6rem,6.2vw,5rem);font-weight:600}
+  .eyebrow{font-family:'Hanken Grotesk';font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+  a{color:inherit}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(243,236,223,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-in{max-width:1120px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between}
+  .logo{font-family:'Fraunces',serif;font-weight:700;font-size:1.5rem;letter-spacing:.02em;display:flex;align-items:baseline;gap:10px}
+  .logo span{font-family:'Hanken Grotesk';font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{font-size:.92rem;font-weight:500;text-decoration:none;color:var(--ink-soft);transition:color .2s}
+  .nav-links a:hover{color:var(--ink)}
+  .btn{
+    display:inline-block;background:var(--accent);color:#fbf7ef;text-decoration:none;
+    font-weight:600;font-size:.95rem;padding:13px 24px;border-radius:2px;
+    transition:transform .18s ease,background .18s ease;border:none;cursor:pointer;
+  }
+  .btn:hover{background:var(--accent-deep);transform:translateY(-2px)}
+  .btn-lg{padding:17px 34px;font-size:1.05rem}
+  .nav-links .btn{color:#fbf7ef}
+  .menu-btn{display:none}
+
+  /* HERO */
+  .hero{padding:90px 0 80px;position:relative}
+  .hero::after{
+    content:"";position:absolute;top:-120px;right:-160px;width:520px;height:520px;z-index:-1;
+    background:radial-gradient(circle,rgba(184,80,42,.16),transparent 62%);border-radius:50%;
+  }
+  .hero .eyebrow{opacity:0;animation:rise .7s .05s forwards}
+  .hero h1{margin:18px 0 26px;max-width:14ch;opacity:0;animation:rise .8s .15s forwards}
+  .hero .lede{font-size:clamp(1.1rem,2.2vw,1.32rem);color:var(--ink-soft);max-width:54ch;opacity:0;animation:rise .8s .3s forwards}
+  .hero .cta-row{margin-top:38px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;opacity:0;animation:rise .8s .45s forwards}
+  .cta-row .ghost{font-weight:600;text-decoration:none;border-bottom:2px solid var(--ink);padding-bottom:3px}
+  .trust{margin-top:54px;padding-top:26px;border-top:1px solid var(--line);display:flex;gap:30px;flex-wrap:wrap;font-size:.86rem;color:var(--ink-soft);font-weight:500;opacity:0;animation:rise .8s .6s forwards}
+  .trust b{color:var(--green);font-weight:700}
+  @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+  /* SECTIONS */
+  section{padding:76px 0;position:relative}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  .sec-head{max-width:60ch;margin-bottom:48px}
+  .sec-head h2{font-size:clamp(1.9rem,4vw,2.9rem);margin:14px 0 16px}
+  .sec-head p{color:var(--ink-soft);font-size:1.12rem}
+
+  .band{background:var(--bg-alt)}
+
+  /* PROBLEM */
+  .prob-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:54px;align-items:center}
+  .prob-grid p{font-size:1.18rem;color:var(--ink-soft);margin-bottom:18px}
+  .prob-grid p strong{color:var(--ink)}
+  .stamp{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:34px;box-shadow:var(--shadow)}
+  .stamp .big{font-family:'Fraunces',serif;font-size:3.4rem;font-weight:600;color:var(--accent);line-height:1}
+  .stamp .lbl{font-weight:600;margin-top:8px}
+  .stamp .sub{color:var(--ink-soft);font-size:.95rem;margin-top:6px}
+  .stamp hr{border:none;border-top:1px solid var(--line);margin:24px 0}
+
+  /* DELIVERABLE */
+  .deliver{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .d-card{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:30px;transition:transform .25s ease,box-shadow .25s ease}
+  .d-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .d-card .num{font-family:'Fraunces',serif;font-size:1rem;font-weight:600;color:var(--accent);border:1px solid var(--accent);width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:50%;margin-bottom:16px}
+  .d-card h3{font-size:1.25rem;margin-bottom:8px}
+  .d-card p{font-size:.98rem;color:var(--ink-soft)}
+  .keep-note{margin-top:30px;font-size:1.05rem;font-style:italic;color:var(--green);font-family:'Fraunces',serif}
+
+  /* STEPS */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;counter-reset:s}
+  .step{position:relative;padding-top:30px;border-top:3px solid var(--ink)}
+  .step::before{counter-increment:s;content:"0" counter(s);font-family:'Fraunces',serif;font-size:2.6rem;font-weight:600;color:var(--accent);display:block;margin-bottom:10px;line-height:1}
+  .step h3{font-size:1.3rem;margin-bottom:10px}
+  .step p{color:var(--ink-soft);font-size:1rem}
+
+  /* MATRIX */
+  .matrix-sec{background:var(--ink);color:var(--bg)}
+  .matrix-sec .eyebrow{color:#e89a6f}
+  .matrix-sec h2{color:var(--bg)}
+  .matrix-sec .sec-head p{color:#c5bba8}
+  .matrix{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:10px;position:relative}
+  .q{border:1px solid #4a4239;border-radius:3px;padding:26px;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .25s ease}
+  .q:hover{transform:scale(1.02)}
+  .q .tag{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9a8e7c}
+  .q .verdict{font-family:'Fraunces',serif;font-size:1.55rem;font-weight:600}
+  .q.do{background:linear-gradient(135deg,rgba(61,107,76,.4),rgba(44,82,57,.15));border-color:var(--green-soft)}
+  .q.do .verdict{color:#7fd6a0}
+  .q.plan{background:rgba(184,80,42,.12);border-color:#7a4329}
+  .q.plan .verdict{color:#e89a6f}
+  .q.nice .verdict{color:#c5bba8}
+  .q.skip .verdict{color:#8a7d6a}
+  .axis-note{margin-top:18px;font-size:.85rem;color:#9a8e7c}
+
+  /* WHO */
+  .who{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  .who-col{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:34px}
+  .who-col.for{border-top:4px solid var(--green)}
+  .who-col.not{border-top:4px solid var(--accent)}
+  .who-col h3{font-size:1.35rem;margin-bottom:18px}
+  .who-col ul{list-style:none}
+  .who-col li{padding:9px 0 9px 28px;position:relative;color:var(--ink-soft);border-bottom:1px solid var(--line)}
+  .who-col li:last-child{border-bottom:none}
+  .who-col.for li::before{content:"→";position:absolute;left:0;color:var(--green);font-weight:700}
+  .who-col.not li::before{content:"×";position:absolute;left:0;color:var(--accent);font-weight:700}
+
+  /* ABOUT */
+  .about{display:grid;grid-template-columns:1fr 1.4fr;gap:48px;align-items:center}
+  .about .portrait{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:34px;box-shadow:var(--shadow)}
+  .about .portrait .ring{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--green));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:2.2rem;font-weight:700;color:#fbf7ef;margin-bottom:18px}
+  .about .portrait .name{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600}
+  .about .portrait .role{color:var(--ink-soft);font-size:.92rem;margin-top:4px}
+  .about .portrait .pills{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+  .about .portrait .pill{font-size:.74rem;font-weight:600;background:var(--bg-alt);border:1px solid var(--line);padding:5px 11px;border-radius:20px;color:var(--ink-soft)}
+  .about-body h2{font-size:clamp(1.8rem,3.6vw,2.6rem);margin-bottom:18px}
+  .about-body p{color:var(--ink-soft);font-size:1.1rem;margin-bottom:16px}
+  .about-body strong{color:var(--ink)}
+
+  /* PRICING */
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
+  .price{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:32px;display:flex;flex-direction:column;position:relative}
+  .price.feat{border:2px solid var(--accent);box-shadow:var(--shadow)}
+  .price .ribbon{position:absolute;top:-13px;left:32px;background:var(--accent);color:#fbf7ef;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:2px}
+  .price .tier{font-family:'Fraunces',serif;font-size:1.45rem;font-weight:600}
+  .price .amt{font-family:'Fraunces',serif;font-size:2.7rem;font-weight:600;margin:12px 0;color:var(--accent)}
+  .price .amt small{font-size:.95rem;color:var(--ink-soft);font-family:'Hanken Grotesk';font-weight:500}
+  .price .desc{color:var(--ink-soft);font-size:.96rem;margin-bottom:20px;flex-grow:1}
+  .price .btn{text-align:center;width:100%}
+  .credit{text-align:center;margin-top:26px;color:var(--ink-soft);font-size:.96rem}
+
+  /* GUARANTEE */
+  .guar{background:var(--green);color:var(--bg);border-radius:3px;padding:48px;text-align:center;max-width:760px;margin:0 auto}
+  .guar h3{font-size:clamp(1.6rem,3.4vw,2.3rem);color:var(--bg);margin-bottom:14px}
+  .guar p{color:#d6e4da;font-size:1.1rem;max-width:50ch;margin:0 auto}
+
+  /* FAQ */
+  .faq-item{border-bottom:1px solid var(--line)}
+  .faq-q{width:100%;background:none;border:none;text-align:left;padding:24px 40px 24px 0;font-family:'Fraunces',serif;font-size:1.2rem;font-weight:600;color:var(--ink);cursor:pointer;position:relative}
+  .faq-q::after{content:"+";position:absolute;right:4px;top:50%;transform:translateY(-50%);font-size:1.6rem;color:var(--accent);transition:transform .3s}
+  .faq-item.open .faq-q::after{transform:translateY(-50%) rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;color:var(--ink-soft)}
+  .faq-a p{padding:0 0 24px;font-size:1.03rem}
+
+  /* FINAL CTA */
+  .final{text-align:center;padding:96px 0}
+  .final h2{font-size:clamp(2.2rem,5vw,3.6rem);max-width:18ch;margin:0 auto 22px}
+  .final p{color:var(--ink-soft);font-size:1.15rem;max-width:48ch;margin:0 auto 34px}
+
+  footer{background:var(--ink);color:#c5bba8;padding:50px 0;font-size:.92rem}
+  .foot-in{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
+  .foot-in .logo{color:var(--bg)}
+  .foot-in a{color:#e89a6f;text-decoration:none}
+
+  @media(max-width:860px){
+    .nav-links{display:none}
+    .prob-grid,.deliver,.steps,.matrix,.who,.about,.price-grid{grid-template-columns:1fr}
+    .hero{padding:60px 0 50px}
+    section{padding:56px 0}
+    .about .portrait{max-width:340px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <div class="logo"><a href="/" style="text-decoration:none;color:inherit">Raiko</a> <span>AI Operations Audits</span></div>
+    <div class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#deliver">What you get</a>
+      <a href="#pricing">Pricing</a>
+      <a class="btn" href="mailto:stephen@raiko.ph?subject=AI%20Audit%20Fit%20Call">Book a fit call</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">AI Operations Audits for established businesses</span>
+    <h1 class="display">Your business is leaving hours on the table. I find exactly where AI puts them back.</h1>
+    <p class="lede">A practical AI audit for businesses that already work. In two weeks you get a prioritized roadmap: what to automate, what to skip, and what each one is worth. No hype. No jargon. Just what fits your operation.</p>
+    <div class="cta-row">
+      <a class="btn btn-lg" href="mailto:stephen@raiko.ph?subject=AI%20Audit%20Fit%20Call">Book a free 20-minute fit call</a>
+      <a class="ghost" href="#deliver">See what you get</a>
+    </div>
+    <div class="trust">
+      <span><b>4+ years</b> building production AI systems</span>
+      <span><b>Honest</b> about what's not worth it</span>
+      <span><b>Real automations</b>, not slideware</span>
+    </div>
+  </div>
+</header>
+
+<section class="band reveal">
+  <div class="wrap">
+    <div class="prob-grid">
+      <div>
+        <span class="eyebrow">The problem</span>
+        <h2 style="font-size:clamp(1.9rem,4vw,2.7rem);margin:14px 0 22px">You keep hearing you should "use AI."</h2>
+        <p>Every week there's a new tool, a new pitch, a new buzzword. But you run a real business with real customers and a real team.</p>
+        <p>You don't have time to test fifty apps to find the three that actually move the needle for <strong>your</strong> operation. And the last thing you need is a consultant who hands you a deck full of theory and disappears.</p>
+        <p>You don't need more AI hype. You need someone to tell you, plainly, where it pays off and where it doesn't.</p>
+      </div>
+      <div class="stamp">
+        <div class="big">73%</div>
+        <div class="lbl">of small businesses want to use AI</div>
+        <div class="sub">but most never get past "we should look into that someday."</div>
+        <hr>
+        <div class="big" style="color:var(--green)">3</div>
+        <div class="lbl">tools usually matter</div>
+        <div class="sub">out of the dozens being pitched to you. The audit finds yours.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="deliver" class="reveal">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">What you get</span>
+      <h2>What you actually walk away with</h2>
+      <p>Not a sales pitch. A working document your team can act on.</p>
+    </div>
+    <div class="deliver">
+      <div class="d-card">
+        <div class="num">1</div>
+        <h3>A prioritized opportunity list</h3>
+        <p>Every place AI or automation can help your business, ranked by impact against the effort to put it in place.</p>
+      </div>
+      <div class="d-card">
+        <div class="num">2</div>
+        <h3>The specific tools and approach</h3>
+        <p>For each opportunity, exactly what to use and how, written in plain language, not technical jargon.</p>
+      </div>
+      <div class="d-card">
+        <div class="num">3</div>
+        <h3>Estimated time and money saved</h3>
+        <p>Real numbers per opportunity, so you can see what's worth doing first and what to leave alone.</p>
+      </div>
+      <div class="d-card">
+        <div class="num">4</div>
+        <h3>A phased roadmap</h3>
+        <p>A clear order of operations you can follow, documented so anyone on your team can run with it.</p>
+      </div>
+    </div>
+    <p class="keep-note">It's yours to keep. Hand it to anyone. Act on it on your own timeline, with or without me.</p>
+  </div>
+</section>
+
+<section id="how" class="band reveal">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">How it works</span>
+      <h2>Three steps, about two weeks</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3>Discovery</h3>
+        <p>A working session where I learn how your business actually runs: your workflows, your tools, your bottlenecks, and where time quietly disappears.</p>
+      </div>
+      <div class="step">
+        <h3>Analysis</h3>
+        <p>I map your operation against what AI and automation can realistically do today, separating the genuine wins from the hype.</p>
+      </div>
+      <div class="step">
+        <h3>Report and roadmap</h3>
+        <p>You get the written audit plus a call to walk through it, prioritize together, and decide exactly what to tackle first.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="matrix-sec reveal">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">How I rank it</span>
+      <h2>Every opportunity, scored honestly</h2>
+      <p>Not everything labeled "AI" is worth your money. Each opportunity lands in one of four boxes, and I tell you which.</p>
+    </div>
+    <div class="matrix">
+      <div class="q do">
+        <span class="tag">High impact · Low effort</span>
+        <span class="verdict">Do first</span>
+      </div>
+      <div class="q plan">
+        <span class="tag">High impact · High effort</span>
+        <span class="verdict">Plan for</span>
+      </div>
+      <div class="q nice">
+        <span class="tag">Low impact · Low effort</span>
+        <span class="verdict">Nice to have</span>
+      </div>
+      <div class="q skip">
+        <span class="tag">Low impact · High effort</span>
+        <span class="verdict">Skip it</span>
+      </div>
+    </div>
+    <p class="axis-note">The "skip it" box is the one most consultants won't show you. I will.</p>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Fit</span>
+      <h2>Who this is for</h2>
+    </div>
+    <div class="who">
+      <div class="who-col for">
+        <h3>Built for</h3>
+        <ul>
+          <li>Established, profitable businesses with real operations</li>
+          <li>Auto and trades, real estate, storage, manufacturing, services</li>
+          <li>Owners who run a team and feel the weight of repetitive work</li>
+          <li>People who want a straight answer, not a buzzword tour</li>
+        </ul>
+      </div>
+      <div class="who-col not">
+        <h3>Not for</h3>
+        <ul>
+          <li>Pre-revenue startups chasing a magic bullet</li>
+          <li>Anyone who wants AI for its own sake</li>
+          <li>Businesses looking to cut staff rather than free them up</li>
+          <li>People who want a slide deck, not a working plan</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band reveal">
+  <div class="wrap">
+    <div class="about">
+      <div class="portrait">
+        <div class="ring">R</div>
+        <div class="name">Stephen Mendoza</div>
+        <div class="role">Founder, Raiko · AI Operations</div>
+        <div class="pills">
+          <span class="pill">LLM workflows</span>
+          <span class="pill">Automation</span>
+          <span class="pill">Data pipelines</span>
+          <span class="pill">App development</span>
+        </div>
+      </div>
+      <div class="about-body">
+        <span class="eyebrow">Who runs the audit</span>
+        <h2>A builder, not a hype guy.</h2>
+        <p>For more than four years I've built AI systems and automations for a live digital platform used by a large, active community.</p>
+        <p>I've built <strong>automated pipelines that replaced hours of manual work every week</strong>, internal tools, and production AI workflows. I've also shipped my own software to the App Store and Google Play. I build with these tools every day, which is exactly how I know what they can and can't do for a business like yours.</p>
+        <p>When I tell you something is worth automating, it's because I've actually done it. When I tell you to skip something, it's because I've watched it waste people's time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="reveal">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Pricing</span>
+      <h2>Pick your depth</h2>
+      <p>Straightforward packages. No retainers, no surprises.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price">
+        <div class="tier">Quick Scan</div>
+        <div class="amt">$750</div>
+        <p class="desc">A focused review of your top workflows with a short opportunity report. Best for a smaller operation or a single department.</p>
+        <a class="btn" href="mailto:stephen@raiko.ph?subject=Quick%20Scan">Start a Quick Scan</a>
+      </div>
+      <div class="price feat">
+        <span class="ribbon">Most popular</span>
+        <div class="tier">Full Audit + Roadmap</div>
+        <div class="amt">$1,950</div>
+        <p class="desc">An end-to-end review across your operation, the full prioritized report with savings estimates, and a roadmap session to plan your first moves.</p>
+        <a class="btn" href="mailto:stephen@raiko.ph?subject=Full%20Audit">Book the Full Audit</a>
+      </div>
+      <div class="price">
+        <div class="tier">Build Partnership</div>
+        <div class="amt">Custom</div>
+        <p class="desc">I implement the top priorities from your audit, end to end. Your audit fee is credited toward your first build.</p>
+        <a class="btn" href="mailto:stephen@raiko.ph?subject=Build%20Partnership">Talk about building</a>
+      </div>
+    </div>
+    <p class="credit">Your audit fee is credited toward implementation if you decide to build with me.</p>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <div class="guar">
+      <span class="eyebrow" style="color:#a9d0b8">The promise</span>
+      <h3>If the audit doesn't surface real, actionable savings worth more than the fee, you don't pay.</h3>
+      <p>The whole point is to make you money or give you back time. If it doesn't, it isn't worth your money, and I won't take it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band reveal">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Questions</span>
+      <h2>The honest answers</h2>
+    </div>
+    <div class="faq">
+      <div class="faq-item">
+        <button class="faq-q">Is my business data safe?</button>
+        <div class="faq-a"><p>Yes. I work only with what you choose to share, I'll sign an NDA if you want one, and I don't keep sensitive data beyond the engagement.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Will this replace my staff?</button>
+        <div class="faq-a"><p>The goal isn't to cut people. It's to take repetitive work off their plates so they spend time on higher-value work. Most owners use the time savings to grow, not shrink.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How technical do I need to be?</button>
+        <div class="faq-a"><p>Not at all. The entire job is translating the technical side into plain decisions, numbers, and next steps you can actually act on.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How long does it take?</button>
+        <div class="faq-a"><p>Most audits run about two weeks, from our first working session to the final report and roadmap call.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What if I don't find it useful?</button>
+        <div class="faq-a"><p>See the promise above. If the audit doesn't surface real value worth more than the fee, you don't pay.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final reveal">
+  <div class="wrap">
+    <span class="eyebrow">Let's begin</span>
+    <h2>Find out what AI is actually worth to your business.</h2>
+    <p>No pitch, no pressure. We'll see if it's a fit, and you'll leave the call with at least one idea you can use that day.</p>
+    <a class="btn btn-lg" href="mailto:stephen@raiko.ph?subject=AI%20Audit%20Fit%20Call">Book a free 20-minute fit call</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <div class="logo">Raiko</div>
+    <div>AI Operations Audits for established businesses</div>
+    <div><a href="mailto:stephen@raiko.ph">stephen@raiko.ph</a></div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+  },{threshold:.14});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const item=b.parentElement, a=b.nextElementSibling, open=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-a').style.maxHeight=null});
+      if(!open){item.classList.add('open');a.style.maxHeight=a.scrollHeight+'px'}
+    });
+  });
+</script>
+</body>
+</html>
